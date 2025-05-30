@@ -19,7 +19,7 @@ public class BookController {
     @GetMapping("/books")
     public ResponseEntity<List<Book>> getBooks() {
         List <Book> list = bookService.getAllBooks();
-        if(list.size() <=0) {
+        if(list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.of(Optional.of(list));
@@ -49,7 +49,7 @@ public class BookController {
     }
 
     @DeleteMapping("/books/{bookId}")
-    public ResponseEntity deleteBooks(@PathVariable ("bookId")  int bookId) {
+    public ResponseEntity<Book> deleteBooks(@PathVariable ("bookId")  int bookId) {
                 Book b = bookService.deleteBook(bookId);
                 if(b == null) {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
